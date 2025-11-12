@@ -1,0 +1,706 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(6, 33, 34, 0.98) 0%, rgba(12, 47, 47, 0.95) 100%);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Global vignette glow effect */
+.container::before {
+  content: "";
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(52, 255, 240, 0.08), transparent 50%);
+  filter: blur(40px);
+  z-index: 0;
+}
+
+/* ========== FIGMA HEADER ========== */
+.headerFigma {
+  width: 100%;
+  position: relative;
+  padding: 16px 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  flex-shrink: 0;
+  max-width: 100%;
+}
+
+.headerFigma::before {
+  display: none;
+}
+
+.headerInner {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+/* Logo Group (left side) */
+.logoGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.logoIconWrapper {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(45, 226, 230, 0.12);
+  border: 1.5px solid rgba(45, 226, 230, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.logoIcon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2DE2E6;
+  animation: none;
+}
+
+/* Online Status Dot */
+.onlineDot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #00FF9D;
+  border: 2px solid rgba(6, 33, 34, 0.98);
+  box-shadow: 0 0 8px rgba(0, 255, 157, 0.6);
+  animation: dotBlink 2s ease-in-out infinite;
+}
+
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(0, 255, 157, 0.6); }
+  50% { opacity: 0.5; box-shadow: 0 0 4px rgba(0, 255, 157, 0.3); }
+}
+
+/* Shake animation on hover */
+.logoGroup:hover .logoIcon {
+  animation: iconShake 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes iconShake {
+  0%, 100% { transform: translateX(0) rotateZ(0deg); }
+  15% { transform: translateX(-4px) rotateZ(-3deg); }
+  30% { transform: translateX(4px) rotateZ(3deg); }
+  45% { transform: translateX(-3px) rotateZ(-2deg); }
+  60% { transform: translateX(3px) rotateZ(2deg); }
+  75% { transform: translateX(-2px) rotateZ(-1deg); }
+  85% { transform: translateX(1px) rotateZ(0.5deg); }
+}
+
+/* Brand Text */
+.brandText {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  letter-spacing: -0.5px;
+}
+
+.brandSound {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.brandMint {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #33F3FF;
+  line-height: 1;
+}
+
+/* Header Action (right side) */
+.headerAction {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.connectedState {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Connect Button */
+.connectBtnHeader {
+  padding: 10px 18px;
+  background: #8DEBD1;
+  color: #0A0A0A;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.connectBtnHeader:hover {
+  transform: scale(1.05);
+  background: #a0f0d8;
+  box-shadow: 0 4px 12px rgba(141, 235, 209, 0.3);
+}
+
+.connectBtnHeader:active {
+  transform: scale(0.98);
+}
+
+/* Disconnect Button */
+.disconnectBtnHeader {
+  padding: 10px 18px;
+  background: rgba(141, 235, 209, 0.2);
+  color: #8DEBD1;
+  border: 1px solid rgba(141, 235, 209, 0.4);
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.disconnectBtnHeader:hover {
+  background: rgba(141, 235, 209, 0.3);
+  border-color: rgba(141, 235, 209, 0.6);
+}
+
+/* ========== MAIN CONTENT ========== */
+.main {
+  flex: 1;
+  width: 100%;
+  /* make room below the header */
+  padding: 100px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* start content from the top so padding-top actually creates space */
+  justify-content: flex-start;
+  text-align: center;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Hide scrollbar but allow scrolling */
+.main::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+.main {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ========== WALLET ORB SECTION ========== */
+.orbContainer {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 24px; /* small extra gap under header */
+}
+
+/* Base circle styling for all orb layers */
+.orbCircle {
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Outer glow layer - VISIBLE */
+.orbGlowOuter {
+  display: none !important;
+}
+
+/* Middle glow layer - VISIBLE */
+.orbGlowMid {
+  display: none !important;
+}
+
+/* Inner core circle with icon */
+.orbCore {
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle at 35% 35%, rgba(77, 250, 255, 0.18), rgba(21, 83, 84, 0.36));
+  border: 2px solid rgba(45, 226, 230, 0.38);
+  box-shadow: 0 0 44px rgba(45, 226, 230, 0.26), inset 0 0 36px rgba(45, 226, 230, 0.12);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: orbPulseCore 4s ease-in-out infinite;
+}
+
+.orbCore:hover,
+.orbCoreHover {
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 0 50px rgba(45, 226, 230, 0.35), inset 0 0 40px rgba(45, 226, 230, 0.15);
+}
+
+/* Icon inside the core */
+.orbIconWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.orbIcon {
+  width: 72px;
+  height: 72px;
+  color: #7EF8E4;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 12px rgba(126, 248, 228, 0.3));
+  flex-shrink: 0;
+}
+
+/* Pulse animations */
+@keyframes orbPulseOuter {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes orbPulseMid {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes orbPulseCore {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(45, 226, 230, 0.3)); }
+  50% { filter: drop-shadow(0 0 30px rgba(45, 226, 230, 0.5)); }
+}
+
+/* Floating accent icons */
+.floatingIcon {
+  position: absolute;
+  flex-shrink: 0;
+}
+
+.floatingIconBL {
+  bottom: 20px;
+  left: 20px;
+  animation: floatDriftBL 5s ease-in-out infinite;
+}
+
+.floatingIconTR {
+  top: 10px;
+  right: 10px;
+  animation: floatDriftTR 6s ease-in-out infinite;
+}
+
+.floatingIconCircle {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, rgba(45, 226, 230, 0.15), rgba(21, 83, 84, 0.25));
+  border: 1.25px solid rgba(45, 226, 230, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(45, 226, 230, 0.12);
+}
+
+.floatingIconContent {
+  width: 36px;
+  height: 36px;
+  color: #7EF8E4;
+  stroke-width: 1.5;
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+/* Floating drift animations */
+@keyframes floatDriftBL {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(8px, -8px) rotate(5deg); }
+  50% { transform: translate(0, -12px) rotate(0deg); }
+  75% { transform: translate(-8px, -8px) rotate(-5deg); }
+}
+
+@keyframes floatDriftTR {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-8px, 8px) rotate(-5deg); }
+  50% { transform: translate(0, 12px) rotate(0deg); }
+  75% { transform: translate(8px, 8px) rotate(5deg); }
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 20px 0 12px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 auto 32px;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.errorBox {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  margin-bottom: 24px;
+  color: #fca5a5;
+  font-size: 0.9rem;
+}
+
+.alertIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.featuresBox {
+  padding: 24px;
+  background: rgba(45, 226, 230, 0.08);
+  border: 1px solid rgba(45, 226, 230, 0.2);
+  border-radius: 12px;
+  margin-bottom: 32px;
+  max-width: 450px;
+}
+
+.featuresBox ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.featuresBox li {
+  padding: 8px 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.connectMainBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: #8DEBD1;
+  color: #0A0A0A;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(141, 235, 209, 0.3);
+  flex-shrink: 0;
+}
+
+.connectMainBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(141, 235, 209, 0.4);
+}
+
+.connectMainBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.buttonIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ========== MODAL ========== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.modalContent {
+  background: #1a1a1a;
+  border: 1px solid rgba(45, 226, 230, 0.2);
+  border-radius: 16px;
+  padding: 28px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Hide scrollbar in modal */
+.modalContent::-webkit-scrollbar {
+  display: none;
+}
+.modalContent {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.modalHeader h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+
+.closeBtn:hover {
+  color: #ffffff;
+}
+
+.modalSubtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin: 0 0 20px;
+}
+
+.walletOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.walletOption {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(45, 226, 230, 0.08);
+  border: 1px solid rgba(45, 226, 230, 0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.walletOption:hover:not(:disabled) {
+  background: rgba(45, 226, 230, 0.15);
+  border-color: rgba(45, 226, 230, 0.4);
+}
+
+.walletOption:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.walletIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.walletName {
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.walletDesc {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ========== RESPONSIVENESS ========== */
+@media (max-width: 768px) {
+  .headerInner {
+    padding: 0 16px;
+    gap: 16px;
+  }
+
+  .brandSound,
+  .brandMint {
+    font-size: 1rem;
+  }
+
+  .connectBtnHeader {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .main {
+    padding: 40px 20px;
+  }
+
+  .orbContainer {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 40px;
+  }
+
+  .orbCore {
+    width: 160px;
+    height: 160px;
+  }
+
+  .orbIcon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .floatingIconBL {
+    left: calc(50% - 120px);
+    top: calc(48px + 120px);
+  }
+  .floatingIconTR {
+    left: calc(50% + 80px);
+    top: calc(48px + 8px);
+  }
+  .floatingIconCircle { width: 70px; height: 70px; }
+  .floatingIconContent { width: 28px; height: 28px; }
+}
+
+@media (max-width: 480px) {
+  .headerFigma {
+    padding: 12px 16px;
+  }
+
+  .headerInner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 0 12px;
+  }
+
+  .logoGroup {
+    justify-content: center;
+  }
+
+  .headerAction {
+    justify-content: center;
+  }
+
+  .connectBtnHeader {
+    width: 100%;
+    padding: 10px 16px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .orbContainer {
+    width: 260px;
+    height: 260px;
+    margin-bottom: 30px;
+  }
+
+  .orbCore {
+    width: 140px;
+    height: 140px;
+  }
+
+  .orbIcon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .floatingIconBL {
+    left: calc(50% - 90px);
+    top: calc(48px + 100px);
+  }
+  .floatingIconTR {
+    left: calc(50% + 60px);
+    top: calc(48px + 8px);
+  }
+  .floatingIconCircle { width: 60px; height: 60px; }
+  .floatingIconContent { width: 20px; height: 20px; }
+
+  .featuresBox {
+    max-width: 100%;
+  }
+
+  .modalContent {
+    padding: 20px;
+  }
+}

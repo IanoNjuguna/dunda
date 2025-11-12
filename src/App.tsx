@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import MintForm  from './components/Dashboard'
+import ConnectionWallet from './components/ConnectionWallet'
 
 function App() {
-  const [count, setCount] = useState(0)
   // track wallet address and provide a mint success handler required by MintForm
   const [walletAddress, setWalletAddress] = useState<string>('')
 
@@ -14,11 +12,18 @@ function App() {
     console.log('mint successful', ...args)
   }
 
+  const handleWalletConnect = (address: string) => {
+    setWalletAddress(address)
+  }
+
+  const handleWalletDisconnect = () => {
+    setWalletAddress('')
+  }
+
   return (
     <>
-    
-      
-      <MintForm walletAddress={walletAddress} onMintSuccess={handleMintSuccess} />
+      <ConnectionWallet onWalletConnect={handleWalletConnect} onWalletDisconnect={handleWalletDisconnect} />
+      {walletAddress && <MintForm walletAddress={walletAddress} onMintSuccess={handleMintSuccess} />}
     </>
   )
 }
